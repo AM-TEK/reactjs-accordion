@@ -23,36 +23,39 @@ export default function Accordion() {
   console.log(selected, multiple);
 
   return (
-    <div className="flex flex-col gap-2 justify-center items-center bg-gray-500">
-      <button onClick={() => setEnableMultiSelection(!enableMultiSelection)}>Enable Multi Selection</button>
+    <div className="flex flex-col items-center justify-center gap-2 p-4 bg-gray-500 rounded">
+      <button 
+        onClick={() => setEnableMultiSelection(!enableMultiSelection)}
+        className="px-4 py-2 text-white bg-blue-500 rounded"
+      >
+        Enable Multi Selection
+      </button>
       {
         data && data.length > 0 ?
         data.map((dataItem) => (
-          <div key={dataItem.id} className="item">
+          <div 
+            key={dataItem.id} 
+            className="w-full max-w-md mx-auto mb-4 overflow-hidden bg-white rounded-lg shadow-md"
+          >
             <div 
               onClick={
                 enableMultiSelection 
                 ? () => handleMultiSelection(dataItem.id) 
                 : () => handleSingleSelection(dataItem.id)
               } 
-              className="title"
+              className="p-4 border-b cursor-pointer"
             >
               
-              <h3>{dataItem.question}</h3>
-              <span>+</span>
+              <h3 className="text-lg font-medium">{dataItem.question}</h3>
+              <span className="text-xl">+</span>
             </div>
             {enableMultiSelection
               ? multiple.indexOf(dataItem.id) !== -1 && (
-                <div>{dataItem.answer}</div>
+                <div className="p-4">{dataItem.answer}</div>
               ) : selected === dataItem.id && (
-                <div>{dataItem.answer}</div>
+                <div className="p-4">{dataItem.answer}</div>
               )
             }
-            {/* {
-              selected === dataItem.id || multiple.indexOf(dataItem.id === -1) ?
-              <div className="content">{dataItem.answer}</div>
-              : null
-            } */}
           </div>
         ))
         : <div>No data found</div>
